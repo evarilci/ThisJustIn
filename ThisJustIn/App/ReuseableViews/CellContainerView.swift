@@ -7,67 +7,78 @@
 
 
 import UIKit
+import Kingfisher
 
 final class CellContainerView: UIView {
     
-    private lazy var pokeImageView: UIImageView = {
+    private lazy var articalImage: UIImageView = {
         let iv = UIImageView()
         iv.clipsToBounds = true
-        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFill
         return iv
     }()
     
-    private lazy var nameLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.font = .boldSystemFont(ofSize: 20)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .label
+        label.numberOfLines = .zero
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         return label
     }()
     
-    private lazy var favoriteMoveLabel: UILabel = {
+    private lazy var contentLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
-        label.font = UIFont(name: "Helvetica", size: 15)
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .secondaryLabel
+        label.numberOfLines = .zero
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label
     }()
     
-    init(frame: CGRect = .zero, nameLabel: String, imageURL: URL, favoriteLabel: String) {
+    init(frame: CGRect = .zero, title: String, imageURL: URL, content: String) {
         super.init(frame: frame)
-        configureUI(imageURL: imageURL, label: nameLabel, favoriteLabel: favoriteLabel)
+        configureUI(imageURL: imageURL, title: title, content: content)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureUI(imageURL: URL, label: String, favoriteLabel: String) {
-        addSubview(pokeImageView)
-        addSubview(nameLabel)
-        addSubview(favoriteMoveLabel)
+    func configureUI(imageURL: URL, title: String, content: String) {
+        addSubview(articalImage)
+        addSubview(titleLabel)
+        addSubview(contentLabel)
+        
+        articalImage.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(8)
+            make.top.equalToSuperview().offset(8)
+            make.width.equalToSuperview().dividedBy(2).offset(-8)
+            make.bottom.equalToSuperview().offset(-8)
+        }
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalTo(self.snp.centerX).offset(8)
+            make.top.equalTo(articalImage.snp.top)
+            make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(50)
+        }
+        
+        contentLabel.snp.makeConstraints { make in
+            make.leading.equalTo(self.snp.centerX).offset(8)
+            make.top.equalTo(titleLabel.snp.bottom).offset(-10)
+            make.trailing.equalToSuperview().offset(-18)
+            make.bottom.equalToSuperview().offset(-8)
+        }
         self.backgroundColor = .systemGray4
-        NSLayoutConstraint.activate([
-            pokeImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 4),
-            pokeImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
-            pokeImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4),
-            pokeImageView.widthAnchor.constraint(equalTo: pokeImageView.heightAnchor),
-            
-            nameLabel.leadingAnchor.constraint(equalTo: pokeImageView.trailingAnchor, constant: 16),
-            nameLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
-            nameLabel.heightAnchor.constraint(equalToConstant: 20),
-            nameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            
-            favoriteMoveLabel.leadingAnchor.constraint(equalTo: pokeImageView.trailingAnchor, constant: 16),
-            favoriteMoveLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            favoriteMoveLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -8),
-            favoriteMoveLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -8)
-            
-            
-        ])
-        pokeImageView.layer.cornerRadius = pokeImageView.frame.height / 5
-        nameLabel.text = label
-        favoriteMoveLabel.text = favoriteLabel
+        
+        
+        articalImage.kf.setImage(with: imageURL, placeholder: UIImage(systemName: "newspaper")!)
+        DispatchQueue.main.async {
+            self.articalImage.layer.cornerRadius = self.articalImage.frame.height / 10
+        }
+        
+        titleLabel.text = title
+        contentLabel.text = content
         self.backgroundColor = .systemGray6
         self.translatesAutoresizingMaskIntoConstraints = false
     }

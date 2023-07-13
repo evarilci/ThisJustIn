@@ -9,35 +9,8 @@ import UIKit
 
 
 final class HomeViewCell: UITableViewCell {
-    private lazy var articalImage: UIImageView = {
-       let iv = UIImageView()
-        iv.clipsToBounds = true
-        iv.contentMode = .scaleAspectFit
-        iv.translatesAutoresizingMaskIntoConstraints = false
-      return iv
-    }()
-    
-    private lazy var titleLabel: UILabel = {
-       let label = UILabel()
-        label.textAlignment = .left
-        label.textColor = .label
-        label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var articalLabel: UILabel = {
-       let label = UILabel()
-        label.textAlignment = .left
-        label.textColor = .secondaryLabel
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
     
     
-    
-   
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         //configureUI()
@@ -48,11 +21,12 @@ final class HomeViewCell: UITableViewCell {
     }
     
     
-    func configureConteiner(for result: Response, url: URL? = nil, favorite move: String) {
-        
-        guard let title = result.articles?.first?.title else {return}
-        
-        let container = CellContainerView(nameLabel: title, imageURL: url!, favoriteLabel: "Favorite move: \(move)")
+    func configureConteiner(with artical: Article) {
+        guard let title = artical.title else {return}
+        guard let urlString = artical.urlToImage else {return}
+        guard let url = URL(string: urlString) else {return}
+        guard let content = artical.content else {return}
+        lazy var container = CellContainerView(title: title, imageURL: url, content: content)
         container.layer.cornerRadius = self.frame.height / 2
         addSubview(container)
         container.snp.makeConstraints { make in
@@ -62,8 +36,6 @@ final class HomeViewCell: UITableViewCell {
             make.bottom.equalToSuperview().inset(8)
         }
         
-        self.titleLabel.text = title
-        
     }
-
+    
 }

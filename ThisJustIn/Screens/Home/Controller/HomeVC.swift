@@ -9,56 +9,62 @@ import UIKit
 
 class HomeVC: UIViewController {
     lazy var tableView : UITableView = {
-       let tv = UITableView()
+        let tv = UITableView()
         tv.dataSource = self
         tv.delegate = self
         tv.rowHeight = (self.view.frame.height / 3) - 48
         tv.backgroundColor = .systemGray6
         tv.separatorStyle = .none
+        tv.register(HomeViewCell.self, forCellReuseIdentifier: K.cellIdentifier)
         return tv
     }()
     let viewModel = HomeViewModel()
     override func viewDidLoad()  {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        
+        setupUI()
         viewModel.delegate = self
-        Task {
-            let response = try await viewModel.fetchArtical()
-        }
+        viewModel.viewDidLoad()
     }
     func setupUI() {
-   
+        
         view.addSubview(tableView)
-           
+        view.backgroundColor = .systemGray6
         tableView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
             make.top.equalToSuperview { view in
                 view.safeAreaLayoutGuide
             }
         }
-    
-       
+        
+        
     }
-
+    
 }
 
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        viewModel.numberOfRows()
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! HomeViewCell
+        let article = viewModel.articleFor(row: indexPath.row)
+        cell.configureConteiner(with: article)
+        return cell
     }
     
 }
 
 extension HomeVC: HomeViewModelDelegate {
-    func fetchArticalsSucceed(artical: Response) {
-        dump(artical)
+    func fetchArticlesSucceed(article: Response) {
+        dump(article)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
-    func fetchArticalsFailed(error: TJIError) {
+    func fetchArticlesFailed(error: TJIError) {
         switch error {
         case .badResponse:
             print("Bad Response")

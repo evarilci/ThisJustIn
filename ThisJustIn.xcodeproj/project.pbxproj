@@ -23,6 +23,7 @@
 		E5C3594F2A608937007BD4C1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5C3594E2A608937007BD4C1 /* SnapKit */; };
 		E5C359532A608B0A007BD4C1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C359522A608B0A007BD4C1 /* HomeViewModel.swift */; };
 		E5C359552A608BF2007BD4C1 /* TJIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C359542A608BF2007BD4C1 /* TJIError.swift */; };
+		E5C359582A609457007BD4C1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C359572A609457007BD4C1 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		E5C3594B2A608840007BD4C1 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		E5C359522A608B0A007BD4C1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E5C359542A608BF2007BD4C1 /* TJIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TJIError.swift; sourceTree = "<group>"; };
+		E5C359572A609457007BD4C1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 		E5C359322A607730007BD4C1 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				E5C359562A609448007BD4C1 /* Helpers */,
 				E5C3594A2A608834007BD4C1 /* Models */,
 				E5C359402A6085AF007BD4C1 /* ReuseableViews */,
 				E5C359372A60774E007BD4C1 /* Managers */,
@@ -207,6 +210,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E5C359562A609448007BD4C1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E5C359572A609457007BD4C1 /* Constants.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -292,6 +303,7 @@
 				E5C359442A6085EA007BD4C1 /* TableViewCell.swift in Sources */,
 				E50A23EA2A6076A000A729DE /* HomeVC.swift in Sources */,
 				E5C3593B2A6083E6007BD4C1 /* TabBarVC.swift in Sources */,
+				E5C359582A609457007BD4C1 /* Constants.swift in Sources */,
 				E5C359422A6085C4007BD4C1 /* TableView.swift in Sources */,
 				E5C3594C2A608840007BD4C1 /* Article.swift in Sources */,
 				E50A23E62A6076A000A729DE /* AppDelegate.swift in Sources */,
