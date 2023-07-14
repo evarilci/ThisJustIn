@@ -22,13 +22,11 @@ class HomeVC: UIViewController {
     let viewModel = HomeViewModel()
     override func viewDidLoad()  {
         super.viewDidLoad()
-        
         setupUI()
         viewModel.delegate = self
         viewModel.viewDidLoad()
     }
     func setupUI() {
-        
         view.addSubview(tableView)
         view.backgroundColor = .systemGray6
         tableView.snp.makeConstraints { make in
@@ -37,22 +35,15 @@ class HomeVC: UIViewController {
                 view.safeAreaLayoutGuide
             }
         }
-        
-        
     }
     
     func showArticle(url: URL) {
-         
             let config = SFSafariViewController.Configuration()
             config.entersReaderIfAvailable = true
-
             let vc = SFSafariViewController(url: url, configuration: config)
             present(vc, animated: true)
-        
     }
-    
 }
-
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,7 +51,14 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! HomeViewCell
+        cell.button.tag = indexPath.row
         let article = viewModel.articleFor(row: indexPath.row)
+        cell.action = {
+            cell.button.isSelected.toggle()
+            self.aveArticleToBookmarks(source: article.source?.name ?? "", title: article.title ?? "", content: article.description ?? "", url: article.url ?? "", image: article.urlToImage ?? "") { message in
+                self.showToast(subtitle: message)
+            }
+        }
         cell.configureConteiner(with: article)
         return cell
     }
@@ -70,9 +68,6 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         guard let url = URL(string:article.url!) else {return}
         showArticle(url: url)
        
-     
-        
-     
         
     }
     
@@ -94,12 +89,14 @@ extension HomeVC: HomeViewModelDelegate {
             print("data could not be decoded")
         case .invalidURL:
             print("invalid URL")
+        default:
+            break
         }
     }
     
     
 }
 
-extension HomeVC: SFSafariViewControllerDelegate {
+extension HomeVC: SFSafariViewControllerDelegate, CoreDataReachable {
     
 }

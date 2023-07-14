@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit.UIImage
 
 
 // MARK: - Response
@@ -30,4 +31,19 @@ struct Article: Codable {
 struct Source: Codable {
     let id: String?
     let name: String?
+}
+
+struct SavedArticle {
+    let source: String?
+   
+    let title, description: String?
+    let image : UIImage
+    
+    init(data: [String: Any]) {
+        self.source = data[K.CoreData.source] as! String
+        self.title = data[K.CoreData.title] as! String
+        self.description = data[K.CoreData.content] as! String
+        self.image = data[K.CoreData.image] as! UIImage
+    }
+    
 }

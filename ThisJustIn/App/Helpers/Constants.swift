@@ -13,10 +13,10 @@ struct K {
     static let logo = "logo"
     
     struct CoreData {
-        static let Entity = "Favorites"
-        static let name = "name"
-        static let AbilityFirst = "abilityFirst"
-        static let AbilitySecond = "abilitySecond"
+        static let Entity = "Bookmarks"
+        static let title = "title"
+        static let content = "content"
+        static let source = "source"
         static let image = "image"
     }
 }

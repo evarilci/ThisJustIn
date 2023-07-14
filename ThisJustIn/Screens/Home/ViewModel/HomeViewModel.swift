@@ -66,5 +66,10 @@ class HomeViewModel: HomeViewModelProtocol {
         return articles[at]
     }
     
+    func unwrappedArticle() {
+        let unwrapped = response?.articles?.compactMap({ _ in
+        })
+    }
+    
 }
 

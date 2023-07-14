@@ -23,6 +23,9 @@
 		E5C359532A608B0A007BD4C1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C359522A608B0A007BD4C1 /* HomeViewModel.swift */; };
 		E5C359552A608BF2007BD4C1 /* TJIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C359542A608BF2007BD4C1 /* TJIError.swift */; };
 		E5C359582A609457007BD4C1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C359572A609457007BD4C1 /* Constants.swift */; };
+		E5C3595D2A61D235007BD4C1 /* CoreDataReachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3595C2A61D234007BD4C1 /* CoreDataReachable.swift */; };
+		E5C359602A61DA8A007BD4C1 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = E5C3595F2A61DA8A007BD4C1 /* Toast */; };
+		E5C359632A61DAB5007BD4C1 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C359622A61DAB5007BD4C1 /* UIViewController+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,8 @@
 		E5C359522A608B0A007BD4C1 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E5C359542A608BF2007BD4C1 /* TJIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TJIError.swift; sourceTree = "<group>"; };
 		E5C359572A609457007BD4C1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E5C3595C2A61D234007BD4C1 /* CoreDataReachable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataReachable.swift; sourceTree = "<group>"; };
+		E5C359622A61DAB5007BD4C1 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5C359602A61DA8A007BD4C1 /* Toast in Frameworks */,
 				E5C359492A6087DD007BD4C1 /* Kingfisher in Frameworks */,
 				E5C3594F2A608937007BD4C1 /* SnapKit in Frameworks */,
 			);
@@ -87,6 +93,7 @@
 		E5C359322A607730007BD4C1 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				E5C359612A61DA9E007BD4C1 /* Extensions */,
 				E5C359562A609448007BD4C1 /* Helpers */,
 				E5C3594A2A608834007BD4C1 /* Models */,
 				E5C359402A6085AF007BD4C1 /* ReuseableViews */,
@@ -137,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				E5C359542A608BF2007BD4C1 /* TJIError.swift */,
+				E5C3595C2A61D234007BD4C1 /* CoreDataReachable.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -215,6 +223,14 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		E5C359612A61DA9E007BD4C1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E5C359622A61DAB5007BD4C1 /* UIViewController+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -234,6 +250,7 @@
 			packageProductDependencies = (
 				E5C359482A6087DD007BD4C1 /* Kingfisher */,
 				E5C3594E2A608937007BD4C1 /* SnapKit */,
+				E5C3595F2A61DA8A007BD4C1 /* Toast */,
 			);
 			productName = ThisJustIn;
 			productReference = E50A23E22A6076A000A729DE /* ThisJustIn.app */;
@@ -266,6 +283,7 @@
 			packageReferences = (
 				E5C359472A6087DD007BD4C1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				E5C3594D2A608937007BD4C1 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				E5C3595E2A61DA8A007BD4C1 /* XCRemoteSwiftPackageReference "toast-swift" */,
 			);
 			productRefGroup = E50A23E32A6076A000A729DE /* Products */;
 			projectDirPath = "";
@@ -297,6 +315,8 @@
 				E5C359532A608B0A007BD4C1 /* HomeViewModel.swift in Sources */,
 				E5C359552A608BF2007BD4C1 /* TJIError.swift in Sources */,
 				E50A23F02A6076A000A729DE /* ThisJustIn.xcdatamodeld in Sources */,
+				E5C359632A61DAB5007BD4C1 /* UIViewController+Extension.swift in Sources */,
+				E5C3595D2A61D235007BD4C1 /* CoreDataReachable.swift in Sources */,
 				E5C359442A6085EA007BD4C1 /* TableViewCell.swift in Sources */,
 				E50A23EA2A6076A000A729DE /* HomeVC.swift in Sources */,
 				E5C3593B2A6083E6007BD4C1 /* TabBarVC.swift in Sources */,
@@ -532,6 +552,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		E5C3595E2A61DA8A007BD4C1 /* XCRemoteSwiftPackageReference "toast-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/BastiaanJansen/toast-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -544,6 +572,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E5C3594D2A608937007BD4C1 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		E5C3595F2A61DA8A007BD4C1 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5C3595E2A61DA8A007BD4C1 /* XCRemoteSwiftPackageReference "toast-swift" */;
+			productName = Toast;
 		};
 /* End XCSwiftPackageProductDependency section */
 

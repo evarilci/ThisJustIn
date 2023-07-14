@@ -8,7 +8,7 @@
 import Foundation
 
 enum TJIError: Error {
-case invalidURL, badResponse, invalidData
+case invalidURL, badResponse, invalidData, saveFailed, imageCorrupted, coreFetchFailed
     
     
 }
