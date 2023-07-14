@@ -26,6 +26,7 @@
 		E5C3595D2A61D235007BD4C1 /* CoreDataReachable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3595C2A61D234007BD4C1 /* CoreDataReachable.swift */; };
 		E5C359602A61DA8A007BD4C1 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = E5C3595F2A61DA8A007BD4C1 /* Toast */; };
 		E5C359632A61DAB5007BD4C1 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C359622A61DAB5007BD4C1 /* UIViewController+Extension.swift */; };
+		E5F733272A61F2BE00EE0956 /* OfflineDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F733262A61F2BE00EE0956 /* OfflineDetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		E5C359572A609457007BD4C1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E5C3595C2A61D234007BD4C1 /* CoreDataReachable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataReachable.swift; sourceTree = "<group>"; };
 		E5C359622A61DAB5007BD4C1 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		E5F733262A61F2BE00EE0956 /* OfflineDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineDetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +84,8 @@
 		E50A23E42A6076A000A729DE /* ThisJustIn */ = {
 			isa = PBXGroup;
 			children = (
-				E5C359332A607735007BD4C1 /* Screens */,
 				E5C359322A607730007BD4C1 /* App */,
+				E5C359332A607735007BD4C1 /* Screens */,
 				E50A23F32A6076AA00A729DE /* LaunchScreen.storyboard */,
 				E50A23EE2A6076A000A729DE /* ThisJustIn.xcdatamodeld */,
 			);
@@ -108,8 +110,9 @@
 		E5C359332A607735007BD4C1 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				E5C3593C2A60847E007BD4C1 /* Bookmarks */,
+				E5F733252A61F2A500EE0956 /* OfflineDetail */,
 				E5C359392A60776F007BD4C1 /* Home */,
+				E5C3593C2A60847E007BD4C1 /* Bookmarks */,
 				E5C359382A607765007BD4C1 /* MainTabBar */,
 			);
 			path = Screens;
@@ -231,6 +234,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E5F733252A61F2A500EE0956 /* OfflineDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E5F733292A61F35500EE0956 /* Controller */,
+			);
+			path = OfflineDetail;
+			sourceTree = "<group>";
+		};
+		E5F733292A61F35500EE0956 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E5F733262A61F2BE00EE0956 /* OfflineDetailVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -316,6 +335,7 @@
 				E5C359552A608BF2007BD4C1 /* TJIError.swift in Sources */,
 				E50A23F02A6076A000A729DE /* ThisJustIn.xcdatamodeld in Sources */,
 				E5C359632A61DAB5007BD4C1 /* UIViewController+Extension.swift in Sources */,
+				E5F733272A61F2BE00EE0956 /* OfflineDetailVC.swift in Sources */,
 				E5C3595D2A61D235007BD4C1 /* CoreDataReachable.swift in Sources */,
 				E5C359442A6085EA007BD4C1 /* TableViewCell.swift in Sources */,
 				E50A23EA2A6076A000A729DE /* HomeVC.swift in Sources */,

@@ -8,11 +8,17 @@
 import UIKit
 import SafariServices
 
-class HomeVC: UIViewController {
+final class HomeVC: UIViewController {
+   lazy var refreshControl : UIRefreshControl = {
+       let refresh = UIRefreshControl()
+       refresh.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
+      return refresh
+    }()
     lazy var tableView : UITableView = {
         let tv = UITableView()
         tv.dataSource = self
         tv.delegate = self
+        tv.refreshControl = self.refreshControl
         tv.rowHeight = (self.view.frame.height / 3) - 48
         tv.backgroundColor = .systemGray6
         tv.separatorStyle = .none
@@ -37,6 +43,11 @@ class HomeVC: UIViewController {
         }
     }
     
+    @objc func refreshAction() {
+        viewModel.viewDidLoad()
+        refreshControl.endRefreshing()
+    }
+    
     func showArticle(url: URL) {
             let config = SFSafariViewController.Configuration()
             config.entersReaderIfAvailable = true
@@ -55,7 +66,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         
         let article = viewModel.articleFor(row: indexPath.row)
         cell.saveAction = {
-            self.saveArticleToBookmarks(source: article.source?.name ?? "", title: article.title ?? "", content: article.description ?? "", url: article.url ?? "", image: article.urlToImage ?? "") { message in
+            self.saveArticleToBookmarks(source: article.source?.name ?? "", title: article.title ?? "", content: article.content ?? "", url: article.url ?? "", image: article.urlToImage ?? "") { message in
                 self.showToast(subtitle: message)
             }
         }
@@ -68,12 +79,6 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         cell.configureConteiner(with: article)
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let article = viewModel.articleFor(row: indexPath.row)
-//        guard let url = URL(string:article.url!) else {return}
-//        showArticle(url: url)
-//    }
 }
 
 extension HomeVC: HomeViewModelDelegate {

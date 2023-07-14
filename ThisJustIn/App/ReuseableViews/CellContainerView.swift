@@ -37,16 +37,16 @@ final class CellContainerView: UIView {
         return label
     }()
     
-    init(frame: CGRect = .zero, title: String, imageURL: URL, content: String) {
+    init(frame: CGRect = .zero, title: String, imageURL: URL? = nil, content: String, image: UIImage? = nil) {
         super.init(frame: frame)
-        configureUI(imageURL: imageURL, title: title, content: content)
+        configureUI(imageURL: imageURL, title: title, content: content, image: image)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureUI(imageURL: URL, title: String, content: String) {
+    func configureUI(imageURL: URL? = nil, title: String, content: String, image: UIImage? = nil) {
         addSubview(articalImage)
         addSubview(titleLabel)
         addSubview(contentLabel)
@@ -72,8 +72,12 @@ final class CellContainerView: UIView {
         }
         self.backgroundColor = .systemGray4
         
-        
-        articalImage.kf.setImage(with: imageURL, placeholder: UIImage(systemName: "newspaper")!)
+        if image == nil {
+            articalImage.kf.setImage(with: imageURL, placeholder: UIImage(systemName: "newspaper")!)
+        } else {
+            articalImage.image = image!
+        }
+       
         DispatchQueue.main.async {
             self.articalImage.layer.cornerRadius = self.articalImage.frame.height / 10
         }

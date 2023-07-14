@@ -21,10 +21,7 @@ protocol HomeViewModelProtocol {
     func articleFor(row at: Int) -> Article
     
 }
-
-
-
-class HomeViewModel: HomeViewModelProtocol {
+final class HomeViewModel: HomeViewModelProtocol {
     
     
     
@@ -64,11 +61,6 @@ class HomeViewModel: HomeViewModelProtocol {
     func articleFor(row at: Int) -> Article {
         guard let articles = response?.articles else {return Article(source: nil, author: nil, title: nil, description: nil, url: nil, urlToImage: nil, publishedAt: nil, content: nil)}
         return articles[at]
-    }
-    
-    func unwrappedArticle() {
-        let unwrapped = response?.articles?.compactMap({ _ in
-        })
     }
     
 }

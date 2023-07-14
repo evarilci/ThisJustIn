@@ -52,7 +52,7 @@ final class HomeViewCell: UITableViewCell {
         guard let title = artical.title else {return}
         guard let urlString = artical.urlToImage else {return}
         guard let url = URL(string: urlString) else {return}
-        guard let content = artical.description else {return}
+        guard let content = artical.content else {return}
         lazy var container = CellContainerView(title: title, imageURL: url, content: content)
         
         container.layer.cornerRadius = self.frame.height / 2
@@ -69,6 +69,30 @@ final class HomeViewCell: UITableViewCell {
             make.trailing.equalToSuperview()
             make.height.width.equalTo(50)
         }
+        contentView.addSubview(KeepReedButton)
+        KeepReedButton.snp.makeConstraints { make in
+            make.trailing.equalTo(container.snp.trailing).offset(-8)
+            make.bottom.equalTo(container.snp.bottom).offset(-8)
+            make.width.equalTo(150)
+            make.height.equalTo(10)
+        }
+        
+    }
+    
+    func configureConteiner(with artical: SavedArticle) {
+        guard let title = artical.title, let content = artical.description, let _ = artical.source else {return}
+        let image = artical.image
+        lazy var container = CellContainerView(title: title, content: content, image: image)
+        
+        container.layer.cornerRadius = self.frame.height / 2
+        contentView.addSubview(container)
+        container.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(8)
+            make.trailing.equalToSuperview().inset(8)
+            make.top.equalToSuperview().offset(8)
+            make.bottom.equalToSuperview().inset(8)
+        }
+    
         contentView.addSubview(KeepReedButton)
         KeepReedButton.snp.makeConstraints { make in
             make.trailing.equalTo(container.snp.trailing).offset(-8)
