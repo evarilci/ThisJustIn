@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class HomeVC: UIViewController {
     lazy var tableView : UITableView = {
@@ -40,6 +41,16 @@ class HomeVC: UIViewController {
         
     }
     
+    func showArticle(url: URL) {
+         
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+
+            let vc = SFSafariViewController(url: url, configuration: config)
+            present(vc, animated: true)
+        
+    }
+    
 }
 
 
@@ -52,6 +63,17 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         let article = viewModel.articleFor(row: indexPath.row)
         cell.configureConteiner(with: article)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let article = viewModel.articleFor(row: indexPath.row)
+        guard let url = URL(string:article.url!) else {return}
+        showArticle(url: url)
+       
+     
+        
+     
+        
     }
     
 }
@@ -75,5 +97,9 @@ extension HomeVC: HomeViewModelDelegate {
         }
     }
     
+    
+}
+
+extension HomeVC: SFSafariViewControllerDelegate {
     
 }

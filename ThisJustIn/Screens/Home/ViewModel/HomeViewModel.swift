@@ -50,7 +50,6 @@ class HomeViewModel: HomeViewModelProtocol {
             throw TJIError.invalidData
         }
     }
-    
     func viewDidLoad() {
         Task {
             let response = try await fetchArticle()
