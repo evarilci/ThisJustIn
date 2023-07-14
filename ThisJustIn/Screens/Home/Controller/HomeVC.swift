@@ -54,20 +54,26 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = .none
         
         let article = viewModel.articleFor(row: indexPath.row)
-        cell.onTapAction = {
+        cell.saveAction = {
             self.saveArticleToBookmarks(source: article.source?.name ?? "", title: article.title ?? "", content: article.description ?? "", url: article.url ?? "", image: article.urlToImage ?? "") { message in
                 self.showToast(subtitle: message)
             }
         }
+        cell.readAction = {
+            let article = self.viewModel.articleFor(row: indexPath.row)
+                    guard let url = URL(string:article.url!) else {return}
+            self.showArticle(url: url)
+        }
+        
         cell.configureConteiner(with: article)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let article = viewModel.articleFor(row: indexPath.row)
-        guard let url = URL(string:article.url!) else {return}
-        showArticle(url: url)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let article = viewModel.articleFor(row: indexPath.row)
+//        guard let url = URL(string:article.url!) else {return}
+//        showArticle(url: url)
+//    }
 }
 
 extension HomeVC: HomeViewModelDelegate {
