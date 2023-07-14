@@ -10,7 +10,7 @@ import UIKit
 
 final class HomeViewCell: UITableViewCell {
     
-    var action : (() -> Void)? 
+    var onTapAction : (() -> Void)?
      lazy var button : UIButton = {
        let btn = UIButton()
         btn.setImage(UIImage(systemName: "bookmark.fill")!.withTintColor(.black, renderingMode: .alwaysOriginal), for: .normal)
@@ -19,7 +19,7 @@ final class HomeViewCell: UITableViewCell {
         return btn
     }()
     @objc func bookmarkButtonTapped() {
-        action?()
+        onTapAction?()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

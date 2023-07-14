@@ -31,6 +31,7 @@ final class CellContainerView: UIView {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .secondaryLabel
+        label.sizeToFit()
         label.numberOfLines = .zero
         label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         return label

@@ -38,6 +38,7 @@ extension CoreDataReachable {
             article.setValue(data, forKey: K.CoreData.image)
             try context.save()
             completion("article added to bookmarks")
+            print("core data saved")
         } catch {
             print("Core data save failed")
         

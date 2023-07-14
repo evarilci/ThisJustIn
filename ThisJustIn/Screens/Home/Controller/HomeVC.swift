@@ -51,11 +51,11 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! HomeViewCell
-        cell.button.tag = indexPath.row
+        cell.selectionStyle = .none
+        
         let article = viewModel.articleFor(row: indexPath.row)
-        cell.action = {
-            cell.button.isSelected.toggle()
-            self.aveArticleToBookmarks(source: article.source?.name ?? "", title: article.title ?? "", content: article.description ?? "", url: article.url ?? "", image: article.urlToImage ?? "") { message in
+        cell.onTapAction = {
+            self.saveArticleToBookmarks(source: article.source?.name ?? "", title: article.title ?? "", content: article.description ?? "", url: article.url ?? "", image: article.urlToImage ?? "") { message in
                 self.showToast(subtitle: message)
             }
         }
@@ -67,10 +67,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         let article = viewModel.articleFor(row: indexPath.row)
         guard let url = URL(string:article.url!) else {return}
         showArticle(url: url)
-       
-        
     }
-    
 }
 
 extension HomeVC: HomeViewModelDelegate {
@@ -93,8 +90,6 @@ extension HomeVC: HomeViewModelDelegate {
             break
         }
     }
-    
-    
 }
 
 extension HomeVC: SFSafariViewControllerDelegate, CoreDataReachable {
