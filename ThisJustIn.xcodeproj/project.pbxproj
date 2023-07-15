@@ -13,6 +13,8 @@
 		E50A23F02A6076A000A729DE /* ThisJustIn.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E50A23EE2A6076A000A729DE /* ThisJustIn.xcdatamodeld */; };
 		E50A23F22A6076AA00A729DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E50A23F12A6076AA00A729DE /* Assets.xcassets */; };
 		E50A23F52A6076AA00A729DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E50A23F32A6076AA00A729DE /* LaunchScreen.storyboard */; };
+		E597A2612A62B6A40089AD62 /* searchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597A2602A62B6A40089AD62 /* searchVC.swift */; };
+		E597A2642A62B7410089AD62 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E597A2632A62B7410089AD62 /* SearchViewModel.swift */; };
 		E5C3593B2A6083E6007BD4C1 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3593A2A6083E6007BD4C1 /* TabBarVC.swift */; };
 		E5C3593E2A608539007BD4C1 /* BookmarksVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C3593D2A608539007BD4C1 /* BookmarksVC.swift */; };
 		E5C359442A6085EA007BD4C1 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C359432A6085EA007BD4C1 /* TableViewCell.swift */; };
@@ -38,6 +40,8 @@
 		E50A23F12A6076AA00A729DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E50A23F42A6076AA00A729DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E50A23F62A6076AA00A729DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E597A2602A62B6A40089AD62 /* searchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchVC.swift; sourceTree = "<group>"; };
+		E597A2632A62B7410089AD62 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		E5C3593A2A6083E6007BD4C1 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		E5C3593D2A608539007BD4C1 /* BookmarksVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksVC.swift; sourceTree = "<group>"; };
 		E5C359432A6085EA007BD4C1 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -92,6 +96,31 @@
 			path = ThisJustIn;
 			sourceTree = "<group>";
 		};
+		E597A25E2A62B68C0089AD62 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				E597A2622A62B7330089AD62 /* ViewModel */,
+				E597A25F2A62B6940089AD62 /* ViewController */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		E597A25F2A62B6940089AD62 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E597A2602A62B6A40089AD62 /* searchVC.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E597A2622A62B7330089AD62 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E597A2632A62B7410089AD62 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E5C359322A607730007BD4C1 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +139,7 @@
 		E5C359332A607735007BD4C1 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E597A25E2A62B68C0089AD62 /* Search */,
 				E5F733252A61F2A500EE0956 /* OfflineDetail */,
 				E5C359392A60776F007BD4C1 /* Home */,
 				E5C3593C2A60847E007BD4C1 /* Bookmarks */,
@@ -338,11 +368,13 @@
 				E5F733272A61F2BE00EE0956 /* OfflineDetailVC.swift in Sources */,
 				E5C3595D2A61D235007BD4C1 /* CoreDataReachable.swift in Sources */,
 				E5C359442A6085EA007BD4C1 /* TableViewCell.swift in Sources */,
+				E597A2612A62B6A40089AD62 /* searchVC.swift in Sources */,
 				E50A23EA2A6076A000A729DE /* HomeVC.swift in Sources */,
 				E5C3593B2A6083E6007BD4C1 /* TabBarVC.swift in Sources */,
 				E5C359582A609457007BD4C1 /* Constants.swift in Sources */,
 				E5C3594C2A608840007BD4C1 /* Article.swift in Sources */,
 				E50A23E62A6076A000A729DE /* AppDelegate.swift in Sources */,
+				E597A2642A62B7410089AD62 /* SearchViewModel.swift in Sources */,
 				E5C3593E2A608539007BD4C1 /* BookmarksVC.swift in Sources */,
 				E50A23E82A6076A000A729DE /* SceneDelegate.swift in Sources */,
 			);

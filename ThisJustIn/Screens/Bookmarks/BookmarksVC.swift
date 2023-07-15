@@ -66,6 +66,7 @@ extension BookmarksVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! HomeViewCell
+        cell.selectionStyle = .none
         let article = articles[indexPath.row]
         cell.configureConteiner(with: article)
         cell.readAction = {
