@@ -49,6 +49,8 @@ final class BookmarksVC: UIViewController, CoreDataReachable {
     
     func setupUI() {
         view.addSubview(tableView)
+        let barView = BarView()
+        self.navigationItem.titleView = barView
         view.backgroundColor = .systemGray6
         tableView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()

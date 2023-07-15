@@ -9,7 +9,6 @@ import Foundation
 
 struct K {
     static let cellIdentifier = "cellID"
-    static let FavoritesCellID = "favoritesCell"
     static let logo = "logo"
     
     struct CoreData {

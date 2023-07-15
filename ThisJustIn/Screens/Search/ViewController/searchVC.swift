@@ -9,11 +9,17 @@ import UIKit
 import SafariServices
 
 final class SearchVC: UIViewController, CoreDataReachable {
+    lazy var refreshControl : UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
+       return refresh
+     }()
     let searchController = UISearchController(searchResultsController: nil)
     lazy var tableView : UITableView = {
         let tv = UITableView()
         tv.dataSource = self
         tv.delegate = self
+        tv.refreshControl = self.refreshControl
         tv.rowHeight = (self.view.frame.height / 3) - 48
         tv.backgroundColor = .systemGray6
         tv.separatorStyle = .none
@@ -37,6 +43,14 @@ final class SearchVC: UIViewController, CoreDataReachable {
                 view.safeAreaLayoutGuide
             }
         }
+    }
+    @objc func refreshAction() {
+        let searchbar = searchController.searchBar
+        let scopeButton = searchbar.scopeButtonTitles![searchbar.selectedScopeButtonIndex]
+        Task {
+            try? await viewModel.getArticles(category: scopeButton)
+        }
+        refreshControl.endRefreshing()
     }
     
     private func setupSearchBar() {

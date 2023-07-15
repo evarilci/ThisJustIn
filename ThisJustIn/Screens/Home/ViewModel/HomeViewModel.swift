@@ -10,7 +10,6 @@ import UIKit
 protocol HomeViewModelDelegate: AnyObject {
     func fetchArticlesSucceed(article: Response )
     func fetchArticlesFailed(error: TJIError)
-    
 }
 
 protocol HomeViewModelProtocol {
@@ -60,8 +59,9 @@ final class HomeViewModel: HomeViewModelProtocol {
     }
     func viewDidLoad() {
         Task {
-            let response = try await fetchArticle()
+            let _ = try await fetchArticle()
         }
+        
     }
     
     func numberOfRows() -> Int {

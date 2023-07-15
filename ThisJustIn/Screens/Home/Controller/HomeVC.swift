@@ -10,7 +10,7 @@ import SafariServices
 
 final class HomeVC: UIViewController {
     // MARK: - Properties
-    
+  
    lazy var refreshControl : UIRefreshControl = {
        let refresh = UIRefreshControl()
        refresh.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
@@ -40,15 +40,31 @@ final class HomeVC: UIViewController {
     
     
     func setupUI() {
-        view.addSubview(tableView)
-        view.backgroundColor = .systemGray6
-        tableView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalToSuperview { view in
-                view.safeAreaLayoutGuide
+          let splashView = SplashScreen()
+          let barView = BarView()
+        view.addSubview(splashView)
+        splashView.isHidden = false
+        self.navigationController?.isNavigationBarHidden = true
+        splashView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {[weak self] in
+            guard let self else {return}
+            self.navigationController?.isNavigationBarHidden = false
+            splashView.snp.removeConstraints()
+            splashView.isHidden = true
+            
+            self.view.addSubview(self.tableView)
+            self.navigationItem.titleView = barView
+            self.view.backgroundColor = .systemGray6
+            self.tableView.snp.makeConstraints { make in
+                make.leading.trailing.bottom.equalToSuperview()
+                make.top.equalToSuperview { view in
+                    view.safeAreaLayoutGuide
+                }
             }
         }
-    }
+    )}
     
     @objc func refreshAction() {
         viewModel.viewDidLoad()
