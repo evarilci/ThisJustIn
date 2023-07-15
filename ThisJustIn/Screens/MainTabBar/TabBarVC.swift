@@ -28,7 +28,7 @@ final class MainTabBarController: UITabBarController {
     
     func setupViewControllers() {
         
-        viewControllers = [templateNavController(selectedImage: UIImage(systemName: "house.fill")!, unselectedImage: UIImage(systemName: "house")!, rootViewController: HomeVC()),
+        viewControllers = [templateNavController(selectedImage: UIImage(systemName: "newspaper.fill")!, unselectedImage: UIImage(systemName: "newspaper")!, rootViewController: HomeVC()), templateNavController(selectedImage: UIImage(systemName: "magnifyingglass.circle.fill")!, unselectedImage: UIImage(systemName: "magnifyingglass.circle")!, rootViewController: SearchVC()),
                            templateNavController(selectedImage: UIImage(systemName: "bookmark.fill")!, unselectedImage: UIImage(systemName: "bookmark")!, rootViewController: BookmarksVC()),
                            
         ]

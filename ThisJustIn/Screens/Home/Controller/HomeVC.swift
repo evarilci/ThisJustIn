@@ -47,13 +47,6 @@ final class HomeVC: UIViewController {
         viewModel.viewDidLoad()
         refreshControl.endRefreshing()
     }
-    
-    func showArticle(url: URL) {
-            let config = SFSafariViewController.Configuration()
-            config.entersReaderIfAvailable = true
-            let vc = SFSafariViewController(url: url, configuration: config)
-            present(vc, animated: true)
-    }
 }
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
@@ -83,7 +76,6 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
 
 extension HomeVC: HomeViewModelDelegate {
     func fetchArticlesSucceed(article: Response) {
-        dump(article)
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }

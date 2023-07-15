@@ -8,7 +8,8 @@
 import UIKit
 import SafariServices
 
-final class SearchVC: UIViewController {
+final class SearchVC: UIViewController, CoreDataReachable {
+    let searchController = UISearchController(searchResultsController: nil)
     lazy var tableView : UITableView = {
         let tv = UITableView()
         tv.dataSource = self
@@ -19,20 +20,11 @@ final class SearchVC: UIViewController {
         tv.register(HomeViewCell.self, forCellReuseIdentifier: K.cellIdentifier)
         return tv
     }()
-    lazy var searchBar : UISearchBar = {
-        let searchBar : UISearchBar = UISearchBar()
-        searchBar.frame = CGRect(x: 0, y: 0, width: 200, height: 70)
-        searchBar.delegate = self
-        searchBar.searchBarStyle = UISearchBar.Style.minimal
-        searchBar.placeholder = " Search"
-        searchBar.sizeToFit()
-        self.tableView.tableHeaderView = searchBar
-        return searchBar
-    }()
     let viewModel = SearchViewModel()
     override func viewDidLoad()  {
         super.viewDidLoad()
         setupUI()
+        setupSearchBar()
         viewModel.delegate = self
         viewModel.viewDidLoad()
     }
@@ -46,15 +38,30 @@ final class SearchVC: UIViewController {
             }
         }
     }
-    func showArticle(url: URL) {
-            let config = SFSafariViewController.Configuration()
-            config.entersReaderIfAvailable = true
-            let vc = SFSafariViewController(url: url, configuration: config)
-            present(vc, animated: true)
-    }
+    
+    private func setupSearchBar() {
+           definesPresentationContext = true
+           navigationItem.searchController = self.searchController
+           navigationItem.hidesSearchBarWhenScrolling = true
+           searchController.obscuresBackgroundDuringPresentation = false
+           searchController.searchResultsUpdater = self
+           searchController.searchBar.delegate = self
+           searchController.searchBar.showsScopeBar = true
+           searchController.searchBar.scopeButtonTitles = ["general","technology","Bussines","sports","science","health","entertainment"]
+           definesPresentationContext = true
+           let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+           textFieldInsideSearchBar?.placeholder = " Search"
+       }
+    
+    
 }
 
+// MARK: - SearchViewModelDelegate
 extension SearchVC: SearchViewModelDelegate {
+    func isSearching(bool: Bool) {
+    
+    }
+    
     func reloadTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -62,18 +69,31 @@ extension SearchVC: SearchViewModelDelegate {
     }
     
     func fetchArticlesFailed(error: TJIError) {
+        switch error {
+        case .invalidURL:
+            print("invalid url")
+            case .badResponse:
+            print("invalid response")
+        case .invalidData:
+            print("invalid data")
+        default:
+            print("Another error")
         
+        }
     }
     
     
 }
+// MARK: - UITableViewDelegate, UITableViewDataSource
+
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.articles.count
+        return viewModel.getArticleCount()
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier) as! HomeViewCell
-        let article = viewModel.articleFor(row: indexPath.row)
+        let article = viewModel.getArticle(at: indexPath.row)
+        dump(article, name: "Eymen")
         cell.configureConteiner(with: article)
         cell.saveAction = {
             self.saveArticleToBookmarks(source: article.source?.name ?? "", title: article.title ?? "", content: article.content ?? "", url: article.url ?? "", image: article.urlToImage ?? "") { message in
@@ -81,7 +101,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         cell.readAction = {
-            let article = self.viewModel.articleFor(row: indexPath.row)
+            let article = self.viewModel.getArticle(at: indexPath.row)
                     guard let url = URL(string:article.url!) else {return}
             self.showArticle(url: url)
         }
@@ -89,10 +109,29 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension SearchVC: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchText = searchBar.text else {return}
-        viewModel.searchArticles(with: searchText)
+// MARK: - UISearchResultsUpdating, UISearchBarDelegate
+extension SearchVC: UISearchResultsUpdating, UISearchBarDelegate {
+    func updateSearchResults(for searchController: UISearchController) {
+
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+      
+        let searchbar = searchController.searchBar
+        let scopeButton = searchbar.scopeButtonTitles![searchbar.selectedScopeButtonIndex]
+        Task {
+          try? await viewModel.getArticles(category: scopeButton)
+        }
+        self.tableView.reloadData()
+       
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count > 1 {
+            viewModel.filterArticles(with: searchText)
+        } else {
+            viewModel.filteredArticles = viewModel.articles
+            viewModel.cancelFiltering()
+        }
     }
 }
-

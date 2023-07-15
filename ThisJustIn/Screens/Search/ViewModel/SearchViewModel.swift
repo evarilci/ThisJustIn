@@ -17,12 +17,12 @@ protocol SearchViewModelDelegate: AnyObject {
 
 protocol SearchViewModelProtocol {
     var delegate: SearchViewModelDelegate? { get set }
-    var articles: [Article] { get }
-    var filteredArticles: [Article] { get }
+    var articles: [Article] { get set }
+    var filteredArticles: [Article] { get set }
     var isFiltering: Bool { get }
     func viewDidLoad()
     func getArticles(category: String) async throws
-    func filterArticles(with keyword: String)
+    func filterArticles(with keyword: String, scope: String)
     func cancelFiltering()
     func getArticle(at index: Int) -> Article
     func getArticleCount() -> Int
@@ -39,7 +39,7 @@ class SearchViewModel: SearchViewModelProtocol {
     func viewDidLoad()  {
         Task {
             do {
-                try await getArticles(category: "Business")
+                try await getArticles(category: "general")
             } catch TJIError.invalidURL {
                 print("Invalid URL")
             } catch TJIError.badResponse {
@@ -53,7 +53,6 @@ class SearchViewModel: SearchViewModelProtocol {
     }
     
     func getArticles(category: String) async throws {
-        
         let endpoint = "https://newsapi.org/v2/top-headlines?category=\(category)&apiKey=17b7846220c445dd97e7c7a8806a186f"
         guard let url = URL(string: endpoint) else {throw TJIError.invalidURL}
         let ( data, response) = try await URLSession.shared.data(from: url)
@@ -76,7 +75,7 @@ class SearchViewModel: SearchViewModelProtocol {
 
     }
     
-    func filterArticles(with keyword: String) {
+    func filterArticles(with keyword: String, scope: String = "general") {
         filteredArticles = articles.filter { $0.title!.lowercased().contains(keyword.lowercased()) }
         isFiltering = true
         delegate?.isSearching(bool: true)
@@ -89,12 +88,14 @@ class SearchViewModel: SearchViewModelProtocol {
         delegate?.isSearching(bool: false)
         delegate?.reloadTableView()
     }
+   
     
     func getArticle(at index: Int) -> Article {
         return isFiltering ? filteredArticles[index] : articles[index]
     }
     
     func getArticleCount() -> Int {
+        print(filteredArticles.count ,"-filtered   articles-", articles.count)
         return isFiltering ? filteredArticles.count : articles.count
     }
     
