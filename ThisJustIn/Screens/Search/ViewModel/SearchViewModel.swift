@@ -22,7 +22,7 @@ protocol SearchViewModelProtocol {
     var isFiltering: Bool { get }
     func viewDidLoad()
     func getArticles(category: String) async throws
-    func filterArticles(with keyword: String, scope: String)
+    func filterArticles(with keyword: String)
     func cancelFiltering()
     func getArticle(at index: Int) -> Article
     func getArticleCount() -> Int
@@ -53,9 +53,23 @@ class SearchViewModel: SearchViewModelProtocol {
     }
     
     func getArticles(category: String) async throws {
-        let endpoint = "https://newsapi.org/v2/top-headlines?category=\(category)&apiKey=17b7846220c445dd97e7c7a8806a186f"
-        guard let url = URL(string: endpoint) else {throw TJIError.invalidURL}
-        let ( data, response) = try await URLSession.shared.data(from: url)
+        
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "newsapi.org"
+        components.path = "/v2/top-headlines"
+        components.queryItems = [
+            URLQueryItem(name: "apiKey", value: "17b7846220c445dd97e7c7a8806a186f"),
+            URLQueryItem(name: "category", value: category),
+            URLQueryItem(name: "country", value: "us")
+        ]
+        
+        let url = components.url
+        
+      //  let endpoint = "https://newsapi.org/v2/top-headlines?apiKey=17b7846220c445dd97e7c7a8806a186f&category=\(category)"
+       // guard let url = URL(string: endpoint) else {throw TJIError.invalidURL}
+        let ( data, response) = try await URLSession.shared.data(from: url!)
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw TJIError.badResponse }
         do {
             let decoder = JSONDecoder()
@@ -64,8 +78,6 @@ class SearchViewModel: SearchViewModelProtocol {
             guard let articles = article.articles else {throw TJIError.invalidData}
             self.articles = articles
             delegate?.reloadTableView()
-            
-            
         } catch {
             delegate?.fetchArticlesFailed(error: TJIError.invalidData)
             print(error.localizedDescription)
@@ -75,7 +87,7 @@ class SearchViewModel: SearchViewModelProtocol {
 
     }
     
-    func filterArticles(with keyword: String, scope: String = "general") {
+    func filterArticles(with keyword: String) {
         filteredArticles = articles.filter { $0.title!.lowercased().contains(keyword.lowercased()) }
         isFiltering = true
         delegate?.isSearching(bool: true)
@@ -95,7 +107,7 @@ class SearchViewModel: SearchViewModelProtocol {
     }
     
     func getArticleCount() -> Int {
-        print(filteredArticles.count ,"-filtered   articles-", articles.count)
+      //  print(filteredArticles.count ,"-filtered   articles-", articles.count)
         return isFiltering ? filteredArticles.count : articles.count
     }
     

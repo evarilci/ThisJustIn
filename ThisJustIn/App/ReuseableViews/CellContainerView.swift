@@ -82,8 +82,8 @@ final class CellContainerView: UIView {
             self.articalImage.layer.cornerRadius = self.articalImage.frame.height / 10
         }
         
-        titleLabel.text = title
-        contentLabel.text = content
+        titleLabel.text = title.trimmingCharacters(in: .whitespacesAndNewlines)
+        contentLabel.text = content.trimmingCharacters(in: .whitespacesAndNewlines)
         self.backgroundColor = .systemGray6
         self.translatesAutoresizingMaskIntoConstraints = false
     }

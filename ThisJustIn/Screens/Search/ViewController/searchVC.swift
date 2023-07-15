@@ -88,12 +88,13 @@ extension SearchVC: SearchViewModelDelegate {
 
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(viewModel.getArticleCount(), "number of rows")
         return viewModel.getArticleCount()
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier) as! HomeViewCell
         let article = viewModel.getArticle(at: indexPath.row)
-        dump(article, name: "Eymen")
+        print(article.title!, "title")
         cell.configureConteiner(with: article)
         cell.saveAction = {
             self.saveArticleToBookmarks(source: article.source?.name ?? "", title: article.title ?? "", content: article.content ?? "", url: article.url ?? "", image: article.urlToImage ?? "") { message in
@@ -119,6 +120,7 @@ extension SearchVC: UISearchResultsUpdating, UISearchBarDelegate {
       
         let searchbar = searchController.searchBar
         let scopeButton = searchbar.scopeButtonTitles![searchbar.selectedScopeButtonIndex]
+        print(scopeButton, "scopeButton")
         Task {
           try? await viewModel.getArticles(category: scopeButton)
         }
