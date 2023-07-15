@@ -40,26 +40,24 @@ final class SearchVC: UIViewController, CoreDataReachable {
     }
     
     private func setupSearchBar() {
-           definesPresentationContext = true
-           navigationItem.searchController = self.searchController
-           navigationItem.hidesSearchBarWhenScrolling = true
-           searchController.obscuresBackgroundDuringPresentation = false
-           searchController.searchResultsUpdater = self
-           searchController.searchBar.delegate = self
-           searchController.searchBar.showsScopeBar = true
-           searchController.searchBar.scopeButtonTitles = ["general","technology","Bussines","sports","science","health","entertainment"]
-           definesPresentationContext = true
-           let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
-           textFieldInsideSearchBar?.placeholder = " Search"
-       }
-    
-    
+        definesPresentationContext = true
+        navigationItem.searchController = self.searchController
+        navigationItem.hidesSearchBarWhenScrolling = true
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.showsScopeBar = true
+        searchController.searchBar.scopeButtonTitles = ["general","technology","Bussines","sports","science","health","entertainment"]
+        definesPresentationContext = true
+        let textFieldInsideSearchBar = searchController.searchBar.value(forKey: "searchField") as? UITextField
+        textFieldInsideSearchBar?.placeholder = " Search"
+    }
 }
 
 // MARK: - SearchViewModelDelegate
 extension SearchVC: SearchViewModelDelegate {
     func isSearching(bool: Bool) {
-    
+        
     }
     
     func reloadTableView() {
@@ -67,22 +65,18 @@ extension SearchVC: SearchViewModelDelegate {
             self.tableView.reloadData()
         }
     }
-    
     func fetchArticlesFailed(error: TJIError) {
         switch error {
         case .invalidURL:
             print("invalid url")
-            case .badResponse:
+        case .badResponse:
             print("invalid response")
         case .invalidData:
             print("invalid data")
         default:
             print("Another error")
-        
         }
     }
-    
-    
 }
 // MARK: - UITableViewDelegate, UITableViewDataSource
 
@@ -103,7 +97,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.readAction = {
             let article = self.viewModel.getArticle(at: indexPath.row)
-                    guard let url = URL(string:article.url!) else {return}
+            guard let url = URL(string:article.url!) else {return}
             self.showArticle(url: url)
         }
         return cell
@@ -113,23 +107,21 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
 // MARK: - UISearchResultsUpdating, UISearchBarDelegate
 extension SearchVC: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
-
     }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-      
+        
         let searchbar = searchController.searchBar
         let scopeButton = searchbar.scopeButtonTitles![searchbar.selectedScopeButtonIndex]
         print(scopeButton, "scopeButton")
         Task {
-          try? await viewModel.getArticles(category: scopeButton)
+            try? await viewModel.getArticles(category: scopeButton)
         }
         self.tableView.reloadData()
-       
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.count > 1 {
+        if searchText.count > 3 {
             viewModel.filterArticles(with: searchText)
         } else {
             viewModel.filteredArticles = viewModel.articles

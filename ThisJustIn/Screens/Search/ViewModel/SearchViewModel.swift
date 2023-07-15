@@ -11,8 +11,6 @@ protocol SearchViewModelDelegate: AnyObject {
     func reloadTableView()
     func fetchArticlesFailed(error: TJIError)
     func isSearching(bool: Bool)
-
-    
 }
 
 protocol SearchViewModelProtocol {
@@ -53,8 +51,6 @@ class SearchViewModel: SearchViewModelProtocol {
     }
     
     func getArticles(category: String) async throws {
-        
-        
         var components = URLComponents()
         components.scheme = "https"
         components.host = "newsapi.org"
@@ -65,11 +61,8 @@ class SearchViewModel: SearchViewModelProtocol {
             URLQueryItem(name: "country", value: "us")
         ]
         
-        let url = components.url
-        
-      //  let endpoint = "https://newsapi.org/v2/top-headlines?apiKey=17b7846220c445dd97e7c7a8806a186f&category=\(category)"
-       // guard let url = URL(string: endpoint) else {throw TJIError.invalidURL}
-        let ( data, response) = try await URLSession.shared.data(from: url!)
+        guard let url = components.url else {throw TJIError.invalidURL}
+        let ( data, response) = try await URLSession.shared.data(from: url)
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw TJIError.badResponse }
         do {
             let decoder = JSONDecoder()
@@ -83,8 +76,6 @@ class SearchViewModel: SearchViewModelProtocol {
             print(error.localizedDescription)
             throw TJIError.invalidData
         }
-        
-
     }
     
     func filterArticles(with keyword: String) {
@@ -100,14 +91,14 @@ class SearchViewModel: SearchViewModelProtocol {
         delegate?.isSearching(bool: false)
         delegate?.reloadTableView()
     }
-   
+    
     
     func getArticle(at index: Int) -> Article {
         return isFiltering ? filteredArticles[index] : articles[index]
     }
     
     func getArticleCount() -> Int {
-      //  print(filteredArticles.count ,"-filtered   articles-", articles.count)
+        //  print(filteredArticles.count ,"-filtered   articles-", articles.count)
         return isFiltering ? filteredArticles.count : articles.count
     }
     

@@ -29,8 +29,19 @@ final class HomeViewModel: HomeViewModelProtocol {
     private var response: Response?
     
     func fetchArticle() async throws -> Response {
-        let endpoint = "https://newsapi.org/v2/top-headlines?country=us&apiKey=17b7846220c445dd97e7c7a8806a186f"
-        guard let url = URL(string: endpoint) else {throw TJIError.invalidURL}
+        
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "newsapi.org"
+        components.path = "/v2/top-headlines"
+        components.queryItems = [
+            URLQueryItem(name: "apiKey", value: "17b7846220c445dd97e7c7a8806a186f"),
+            URLQueryItem(name: "country", value: "us"),
+        ]
+        
+        guard let url = components.url else {throw TJIError.invalidURL}
+        
         let ( data, response) = try await URLSession.shared.data(from: url)
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw TJIError.badResponse }
         do {

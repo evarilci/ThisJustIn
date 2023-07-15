@@ -9,6 +9,8 @@ import UIKit
 import SafariServices
 
 final class HomeVC: UIViewController {
+    // MARK: - Properties
+    
    lazy var refreshControl : UIRefreshControl = {
        let refresh = UIRefreshControl()
        refresh.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
@@ -26,12 +28,17 @@ final class HomeVC: UIViewController {
         return tv
     }()
     let viewModel = HomeViewModel()
+    
+    // MARK: - Lifecycle
+    
     override func viewDidLoad()  {
         super.viewDidLoad()
         setupUI()
         viewModel.delegate = self
         viewModel.viewDidLoad()
     }
+    
+    
     func setupUI() {
         view.addSubview(tableView)
         view.backgroundColor = .systemGray6
@@ -48,6 +55,8 @@ final class HomeVC: UIViewController {
         refreshControl.endRefreshing()
     }
 }
+// MARK: - UITableViewDelegate, UITableViewDataSource
+
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,6 +82,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 }
+// MARK: - HomeViewModelDelegate
 
 extension HomeVC: HomeViewModelDelegate {
     func fetchArticlesSucceed(article: Response) {
@@ -94,6 +104,7 @@ extension HomeVC: HomeViewModelDelegate {
         }
     }
 }
+
 
 extension HomeVC: SFSafariViewControllerDelegate, CoreDataReachable {
     
