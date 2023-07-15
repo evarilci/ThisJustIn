@@ -18,19 +18,9 @@ This Just In uses "NewsAPI" to provide all the articles. The app is able to fetc
 
 <a href="https://developer.apple.com/swift/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/swift/swift-original.svg" alt="swift" width="50" height="50"/> </a> <a align="left"> <a href="https://developer.apple.com/swift/" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xcode/xcode-plain.svg" alt="swift" width="50" height="50"/> </a> <a align="left"> <a href="https://developer.apple.com/swift/" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="swift" width="50" height="50"/> </a> <a align="left">
 
+
 ## Screenshots
-![Ekran Resmi 2023-07-15 17 12 48](https://github.com/evarilci/ThisJustIn/assets/10756418/458418b3-1456-4d7d-adfc-2b37fd8ce9ad)
-
-
-https://github.com/evarilci/ThisJustIn/assets/10756418/458418b3-1456-4d7d-adfc-2b37fd8ce9ad
-
-
-
-<img width="200" alt="Ekran Resmi 2022-11-06 21 40 14" src="https://github.com/evarilci/ThisJustIn/assets/10756418/458418b3-1456-4d7d-adfc-2b37fd8ce9ad"> 
-
-
-
-<img width="200" alt="Ekran Resmi 2022-11-06 21 39 44" src="https://user-images.githubusercontent.com/10756418/227785322-f05417ae-7e77-49e0-9087-ba8a52e58bc2.png"> <img width="200" alt="Ekran Resmi 2022-11-06 21 40 26" src="https://user-images.githubusercontent.com/10756418/227785327-858934a8-7aec-4982-96fb-c1a916c59e78.png"> <img width="200" alt="Ekran Resmi 2022-11-06 21 40 37" src="https://user-images.githubusercontent.com/10756418/227785331-f866c331-c723-493f-965f-f9b44a79e766.png">
+<img width="200" alt="Ekran Resmi 2022-11-06 21 40 14" src="https://github.com/evarilci/ThisJustIn/assets/10756418/7e4069bb-818f-4d49-b41c-8bacef29a410"> <img width="200" alt="Ekran Resmi 2022-11-06 21 39 44" src="https://github.com/evarilci/ThisJustIn/assets/10756418/2f5dc191-390d-4816-8a1c-fe1d7a42eeed"> <img width="200" alt="Ekran Resmi 2022-11-06 21 40 26" src="https://github.com/evarilci/ThisJustIn/assets/10756418/4655c7b1-dc62-47a7-a080-4cd00d52cefa"> <img width="200" alt="Ekran Resmi 2022-11-06 21 40 37" src="https://github.com/evarilci/ThisJustIn/assets/10756418/b921b730-cc4a-4ba4-bde7-cc5ed68b9968"><img width="200" alt="Ekran Resmi 2022-11-06 21 39 44" src="https://github.com/evarilci/ThisJustIn/assets/10756418/7ca62ab3-6142-42c6-8d2d-d1c21d8f40a2"> <img width="200" alt="Ekran Resmi 2022-11-06 21 40 26" src="https://github.com/evarilci/ThisJustIn/assets/10756418/2eeadba5-adf8-4bcb-ad1d-3bd2d69d2258"> <img width="200" alt="Ekran Resmi 2022-11-06 21 40 37" src="https://github.com/evarilci/ThisJustIn/assets/10756418/bc42d78a-82f0-42ee-8890-25e74aa134de">
 
 
 
